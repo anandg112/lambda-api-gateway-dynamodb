@@ -1,0 +1,39 @@
+# Node modules
+node_modules/
+cdk.out/
+
+# Build output directories
+dist/
+build/
+
+# TypeScript compiler cache
+*.tsbuildinfo
+
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+pnpm-debug.log*
+
+# Optional npm cache directory
+.npm
+
+# Optional REPL history
+.node_repl_history
+
+# Optional coverage directory used by testing tools
+coverage/
+
+# Environment files
+.env
+.env.local
+.env.*.local
+
+# IDE directories and files
+.vscode/
+.idea/
+.DS_Store
+
+yarn.lock
+package-lock.json
