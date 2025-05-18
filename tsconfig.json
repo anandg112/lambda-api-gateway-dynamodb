@@ -29,6 +29,6 @@
     "noUnusedLocals": true, // Report errors on unused local variables.
     "noUnusedParameters": true // Report errors on unused parameters in functions
   },
-  "include": ["./**/*.ts", "src/services/hello.js"],
+  "include": ["./**/*.ts", "src/services/hello.ts"],
   "exclude": ["node_modules/**/*"]
 }

@@ -1,11 +1,9 @@
 import { Stack, StackProps } from "aws-cdk-lib";
 import { LambdaIntegration } from "aws-cdk-lib/aws-apigateway";
 import { ITable } from "aws-cdk-lib/aws-dynamodb";
-import {
-  Function as LambdaFunction,
-  Code,
-  Runtime,
-} from "aws-cdk-lib/aws-lambda";
+import { Effect, PolicyStatement } from "aws-cdk-lib/aws-iam";
+import { Runtime } from "aws-cdk-lib/aws-lambda";
+import { NodejsFunction } from "aws-cdk-lib/aws-lambda-nodejs";
 import { Construct } from "constructs";
 import { join } from "path";
 
@@ -18,14 +16,22 @@ export class LambdaStack extends Stack {
   constructor(scope: Construct, id: string, props: LambdaStackProps) {
     super(scope, id, props);
 
-    const helloLambda = new LambdaFunction(this, "HelloLambda", {
+    const helloLambda = new NodejsFunction(this, "HelloLambda", {
       runtime: Runtime.NODEJS_20_X,
-      handler: "hello.main",
-      code: Code.fromAsset(join(__dirname, "..", "..", "services")),
+      handler: "handler",
+      entry: join(__dirname, "..", "..", "services", "hello.ts"),
       environment: {
         SPACES_TABLE: props.spacesTable.tableName,
       },
     });
+
+    helloLambda.addToRolePolicy(
+      new PolicyStatement({
+        effect: Effect.ALLOW,
+        actions: ["s3:ListAllMyBuckets", "s3:ListBucket"],
+        resources: ["*"],
+      }),
+    );
 
     this.helloLambdaIntegration = new LambdaIntegration(helloLambda);
     // Define your stack resources here
