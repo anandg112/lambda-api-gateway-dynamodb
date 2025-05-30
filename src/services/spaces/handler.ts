@@ -1,10 +1,11 @@
-import { DynamoDB, DynamoDBClient } from "@aws-sdk/client-dynamodb";
+import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
 import {
   APIGatewayProxyEvent,
   APIGatewayProxyResult,
   Context,
 } from "aws-lambda";
 import { postSpaces } from "./PostSpaces";
+import { getSpaces } from "./GetSpaces";
 
 const ddbClient = new DynamoDBClient({});
 
@@ -17,11 +18,12 @@ async function handler(
   try {
     switch (event.httpMethod) {
       case "GET":
-        message = `Hello from GET!`;
-        break;
+        const getResponse = await getSpaces(event, ddbClient);
+        // console.log("Get Response: ", getResponse);
+        return getResponse;
       case "POST":
-        const response = postSpaces(event, ddbClient);
-        return response;
+        const postResponse = await postSpaces(event, ddbClient);
+        return postResponse;
       default:
         message = "Method not supported";
         break;
