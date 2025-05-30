@@ -7,6 +7,7 @@ import {
 import { postSpaces } from "./PostSpaces";
 import { getSpaces } from "./GetSpaces";
 import { updateSpaces } from "./UpdateSpace";
+import { deleteSpace } from "./DeleteSpace";
 
 const ddbClient = new DynamoDBClient({});
 
@@ -29,6 +30,10 @@ async function handler(
         const updateResponse = await updateSpaces(event, ddbClient);
         console.log("Update Response: ", updateResponse);
         return updateResponse;
+      case "DELETE":
+        const deleteResponse = await deleteSpace(event, ddbClient);
+        console.log("Delete Response: ", deleteResponse);
+        return deleteResponse;
       default:
         message = "Method not supported";
         break;

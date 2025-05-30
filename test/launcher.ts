@@ -5,9 +5,8 @@ process.env.SPACES_TABLE = "SpaceStack-0eb8826c64a5";
 
 handler(
   {
-    httpMethod: "PUT",
-    queryStringParameters: { id: "6638206c-c210-4945-8158-0d797231efed" },
-    body: JSON.stringify({ location: "Tokyo" }),
+    httpMethod: "DELETE",
+    queryStringParameters: { id: "a488fce0-e97d-46c3-a77c-6d52ce6e7dea" },
   } as any,
   {} as any,
 );
