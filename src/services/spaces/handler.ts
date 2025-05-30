@@ -6,6 +6,7 @@ import {
 } from "aws-lambda";
 import { postSpaces } from "./PostSpaces";
 import { getSpaces } from "./GetSpaces";
+import { updateSpaces } from "./UpdateSpace";
 
 const ddbClient = new DynamoDBClient({});
 
@@ -24,6 +25,10 @@ async function handler(
       case "POST":
         const postResponse = await postSpaces(event, ddbClient);
         return postResponse;
+      case "PUT":
+        const updateResponse = await updateSpaces(event, ddbClient);
+        console.log("Update Response: ", updateResponse);
+        return updateResponse;
       default:
         message = "Method not supported";
         break;
